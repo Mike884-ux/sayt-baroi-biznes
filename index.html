@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Сайт барои бизнес</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: bright, block-based. Big blue hero banner with orange circle; three colored tiles; Instagram-vs-site slider;
+   colored work cards; plan cards with blue highlight + calculator; orange-numbered steps; FAQ; orange contact block; navy footer. */
+:root{
+  --bg:#ffffff; --soft:#f2f5ff; --ink:#0e1230; --muted:#5a607a; --line:#e3e7f3;
+  --blue:#1f5eff; --hero:#1f5eff; --orange:#ff7a1a; --sun:#ffd23f; --on-blue:#ffffff; --link:#1f5eff;
+  --display:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --body:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+/* single light look on purpose: the bright brand palette is designed for a white page */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;letter-spacing:-.01em}
+
+/* header */
+header .wrap{display:flex;align-items:center;gap:26px;padding-block:18px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.logo svg{width:44px;height:44px;flex:none}
+.logo .w{display:grid;line-height:1}
+.logo .w small{font:700 10.5px var(--display);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.logo .w b{font:800 22px var(--display);letter-spacing:-.02em}
+.logo .w b i{font-style:normal;color:var(--orange)}
+nav{display:flex;gap:24px;margin-left:auto;font-weight:500}
+nav a{text-decoration:none;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+.lang{display:flex;background:var(--soft);border-radius:999px;padding:3px}
+.lang button{font:700 13px var(--body);border:0;background:none;color:var(--muted);cursor:pointer;padding:6px 12px;border-radius:999px}
+.lang button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 26px;border-radius:14px;font:700 16px var(--body);text-decoration:none;border:0;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn.orange{background:var(--orange);color:#fff;box-shadow:0 10px 24px -12px var(--orange)}
+.btn.blue{background:var(--blue);color:#fff}
+.btn.white{background:#fff;color:#1f5eff}
+.btn.ghost-w{border:2px solid rgba(255,255,255,.55);color:#fff;background:none}
+.btn.ghost{border:2px solid var(--line);color:var(--ink);background:none}
+header .btn{padding:11px 18px;font-size:15px}
+@media (max-width:960px){nav{display:none}.lang{margin-left:auto}}
+@media (max-width:520px){header .btn{display:none}.logo .w small{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--hero);color:#fff;border-radius:34px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:44px;align-items:center;margin-top:6px}
+.hero::before{content:"";position:absolute;width:460px;height:460px;border-radius:50%;background:var(--orange);right:-150px;top:-200px}
+.hero::after{content:"";position:absolute;width:320px;height:320px;border-radius:50%;border:44px solid rgba(255,255,255,.12);left:-150px;bottom:-190px}
+.hero > *{position:relative;z-index:1;min-width:0}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:36px}.hero::before{width:260px;height:260px;right:-110px;top:-120px}}
+.hero h1{font-weight:800;font-size:clamp(36px,5.6vw,66px);line-height:1.02;margin:0 0 20px}
+.hero h1 span+span{color:var(--sun)}
+.hero .lead{font-size:19px;margin:0 0 30px;max-width:44ch;color:rgba(255,255,255,.9)}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+.hours{margin:18px 0 0;font-size:15px;color:rgba(255,255,255,.75)}
+figure{margin:0;position:relative}
+.sticker{position:absolute;left:-22px;bottom:-22px;z-index:3;width:116px;height:116px;border-radius:50%;background:var(--sun);color:#0e1230;display:grid;place-items:center;text-align:center;font:800 14px/1.15 var(--display);transform:rotate(-12deg);box-shadow:0 12px 26px -10px rgba(0,0,0,.4);padding:10px}
+@media (max-width:520px){.sticker{width:92px;height:92px;font-size:12px;left:-8px;bottom:-30px}}
+
+/* browser frame + shots (fixed light colors: they depict client sites) */
+.frame{display:block;border-radius:16px;overflow:hidden;background:#fff;text-decoration:none;color:#14232b;box-shadow:0 30px 60px -28px rgba(5,12,40,.55)}
+.bar{display:flex;gap:6px;align-items:center;padding:9px 12px;background:#eef1f7}
+.bar i{width:10px;height:10px;border-radius:50%;background:#ff5f57}.bar i+i{background:#febc2e}.bar i+i+i{background:#28c840}
+.bar span{margin-left:8px;font:12px var(--body);color:#6b7085;background:#fff;border-radius:6px;padding:3px 10px;flex:1;max-width:240px;white-space:nowrap;overflow:hidden}
+.shot{font-family:var(--body);font-size:clamp(9px,1.12vw,12.5px);line-height:1.35;color:#14232b;background:#fff}
+.shot .h{display:flex;justify-content:space-between;align-items:center;padding:1em 1.4em;font-weight:700;font-size:1.15em}
+.shot .h small{font-size:.62em;border:1px solid currentColor;border-radius:.4em;padding:.15em .5em;opacity:.7}
+.shot .top{padding:2.2em 1.4em 1.9em}
+.shot .t{font-weight:700;font-size:2.2em;line-height:1.08;margin:0 0 .4em;max-width:15ch}
+.shot .p{margin:0 0 1em;opacity:.85;max-width:36ch}
+.shot .b{display:inline-block;padding:.6em 1em;border-radius:.5em;font-weight:700}
+.shot .list{padding:1.2em 1.4em 1.6em;display:grid;grid-template-columns:repeat(auto-fill,minmax(13em,1fr));gap:.5em 2em}
+.shot .row{display:flex;justify-content:space-between;gap:1em;border-bottom:1px dashed #d9dfdd;padding-bottom:.35em}
+.shot .cat{grid-column:1/-1;font-size:.75em;letter-spacing:.12em;text-transform:uppercase;opacity:.6;font-weight:700}
+.coffee .top{background:#163a4e;color:#f3f7f8}.coffee .b{background:#e0a020;color:#1a1405}.coffee .row span{color:#1f4e68;font-weight:700}
+.coffee .st{height:.7em;background:repeating-linear-gradient(90deg,#e0a020 0 1.4em,#163a4e 1.4em 1.9em,#f3f7f8 1.9em 2.4em,#163a4e 2.4em 2.9em)}
+.salon{color:#2a1626}.salon .h{font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:1.4em}
+.salon .top{background:linear-gradient(#f3dbe3,#fff)}.salon .t{font-family:Georgia,serif;font-weight:400}.salon .t em{color:#5b2350}.salon .b{background:#5b2350;color:#fff}
+.salon .chips{display:flex;gap:.4em;flex-wrap:wrap;padding:0 1.4em 1.4em}
+.salon .chips span{border:1px solid #ead9e0;border-radius:99px;padding:.3em .9em}
+.salon .chips .on{background:#5b2350;color:#fff;border-color:#5b2350}
+.auto{color:#141b22}.auto .dark{background:#1b2733;color:#eef3f7}.auto .t{text-transform:uppercase}.auto .t em{font-style:normal;color:#f2c200}
+.auto .hz{height:.7em;background:repeating-linear-gradient(-45deg,#f2c200 0 .7em,#141b22 .7em 1.4em)}
+.auto .row b::before{content:"";display:inline-block;width:.9em;height:.9em;border:1.5px solid #1b2733;border-radius:.2em;margin-right:.5em;vertical-align:-.1em}
+.auto .row.on b::before{background:#1b2733;box-shadow:inset 0 0 0 .18em #fff}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+@media (max-width:720px){.tiles{grid-template-columns:1fr}}
+.tile{border-radius:24px;padding:24px 26px;min-width:0}
+.tile b{display:block;font:800 clamp(34px,4vw,46px)/1 var(--display);margin-bottom:6px}
+.tile span{font-weight:500}
+.t3 b{font-size:clamp(28px,3.4vw,42px)}
+.t1{background:var(--orange);color:#fff}.t2{background:var(--soft)}.t3{background:var(--sun);color:#0e1230}
+
+section{padding-block:84px 0}
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+h2{font-weight:800;font-size:clamp(30px,4vw,46px);line-height:1.08;margin:0;max-width:20ch}
+.sub{margin:10px 0 0;color:var(--muted);max-width:56ch;font-size:18px}
+
+/* instagram vs site */
+.why{background:var(--soft);border-radius:34px;padding:clamp(24px,4vw,48px)}
+.ba{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/8;max-width:100%;--x:50;background:#fff;user-select:none;box-shadow:0 20px 50px -30px rgba(5,12,40,.4)}
+@media (max-width:700px){.ba{aspect-ratio:4/5}}
+.ba:has(input:focus-visible){outline:3px solid var(--orange);outline-offset:3px}
+.pane{position:absolute;inset:0;overflow:hidden;background:#fff}
+.pane.site{clip-path:inset(0 0 0 calc(var(--x) * 1%))}
+.pane.site .shot{min-height:100%}
+.handle{position:absolute;top:0;bottom:0;left:calc(var(--x) * 1%);width:4px;margin-left:-2px;background:#ff7a1a;pointer-events:none}
+.handle::after{content:"";position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:#ff7a1a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6l-6 6 6 6M15 6l6 6-6 6' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px no-repeat;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.tagl,.tagr{position:absolute;top:14px;font:700 13px var(--body);padding:6px 12px;border-radius:999px;pointer-events:none;z-index:2;color:#fff}
+.tagl{left:14px;background:#0e1230}.tagr{right:14px;background:#1f5eff}
+.ig{padding:56px clamp(16px,3vw,30px) 20px;color:#262626}
+.ig-top{display:flex;gap:16px;align-items:center}
+.ig-av{width:62px;height:62px;border-radius:50%;flex:none;background:#d9cfc4;box-shadow:0 0 0 3px #fff,0 0 0 5px #c9378f}
+.ig-top b{display:block;font-size:16px}.ig-top span{font-size:13px;color:#737373}
+.ig-bio{font-size:14px;margin:12px 0 14px}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;max-width:520px}
+.ig-grid i{aspect-ratio:1;background:#c9b8a6}
+.ig-grid i:nth-child(3n+2){background:#a68b6d}.ig-grid i:nth-child(4n){background:#e2d6c8}.ig-grid i:nth-child(5n+1){background:#8c6f55}
+
+/* work cards */
+.cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:980px){.cases{grid-template-columns:1fr}}
+.case{border-radius:28px;padding:26px 26px 0;overflow:hidden;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:#0e1230;min-width:0;transition:transform .2s}
+.case:hover{transform:translateY(-4px)}
+.case.c1{background:#dcebf4}.case.c2{background:#f9e1ea}.case.c3{background:#e4e8ef}
+.case h3{font-weight:800;font-size:22px;margin:0}
+.case p{margin:0;color:#3d4258;font-size:16px}
+.case .go{font-weight:700;color:#1f5eff}
+.case .frame{margin-top:8px;border-radius:14px 14px 0 0;box-shadow:0 -6px 30px -14px rgba(5,12,40,.35)}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--soft);border-radius:28px;padding:30px;display:flex;flex-direction:column;gap:14px;position:relative;min-width:0}
+.plan.hot{background:var(--hero);color:#fff}
+.badge{position:absolute;top:22px;right:22px;background:var(--orange);color:#fff;font:700 12px var(--body);padding:5px 11px;border-radius:999px}
+.plan h3{margin:0;font-weight:800;font-size:24px}
+.plan .time{font-size:15px;opacity:.75}
+.price{font:800 40px/1 var(--display);font-variant-numeric:tabular-nums}
+.price small{font:600 16px var(--body);opacity:.75}
+.plan ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;flex:1}
+.plan li{display:flex;gap:10px;align-items:flex-start}
+.plan li::before{content:"";flex:none;width:20px;height:20px;margin-top:3px;border-radius:50%;background:var(--orange) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.plan .btn{width:100%}
+.note{margin:16px 0 0;color:var(--muted)}
+
+.calc{margin-top:22px;border:2px solid var(--line);border-radius:28px;padding:clamp(20px,3vw,32px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:30px}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.calc h3{margin:0 0 4px;font-weight:800;font-size:24px}
+.group{margin-top:18px}
+.group > span{font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.opt{display:inline-flex;gap:8px;align-items:center;padding:10px 14px;border-radius:12px;background:var(--soft);cursor:pointer;border:2px solid transparent;font-weight:500}
+.opt:has(input:checked){border-color:var(--blue);background:color-mix(in srgb,var(--blue) 12%,var(--bg))}
+.opt input{accent-color:var(--blue);width:17px;height:17px;margin:0}
+.opt span{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.opt em{font-style:normal;color:var(--orange);font-weight:700;font-size:14px}
+.total{background:var(--hero);color:#fff;border-radius:22px;padding:24px;display:grid;gap:12px;align-self:start}
+.total .sum{font:800 42px/1 var(--display);font-variant-numeric:tabular-nums}
+.total small{opacity:.8;font-weight:600}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;list-style:none;margin:0;padding:0;counter-reset:s}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+.steps li{counter-increment:s;background:var(--soft);border-radius:24px;padding:24px;min-width:0}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--orange);color:#fff;font:800 20px var(--display);margin-bottom:14px}
+
+/* faq */
+.faq{display:grid;gap:12px;max-width:860px}
+details{background:var(--soft);border-radius:18px;padding:20px 22px}
+summary{cursor:pointer;font:700 18px var(--display);list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";flex:none;width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font:700 20px var(--body)}
+details[open] summary::after{content:"−";background:var(--orange)}
+details p{margin:10px 0 0;color:var(--muted)}
+
+/* contact */
+.contact{background:var(--orange);color:#fff;border-radius:34px;padding:clamp(26px,5vw,60px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.12);left:-120px;bottom:-160px}
+.contact > *{position:relative;min-width:0}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+.contact h2{color:#fff}
+.contact .sub{color:rgba(255,255,255,.9)}
+.bigtel{display:block;font:800 clamp(30px,4.4vw,46px) var(--display);margin:22px 0 20px;font-variant-numeric:tabular-nums;user-select:all}
+form{background:var(--bg);color:var(--ink);border-radius:24px;padding:26px;display:grid;gap:12px;align-self:start}
+form h3{margin:0;font-weight:800;font-size:22px}
+label{display:grid;gap:5px;font-size:14px;font-weight:500;color:var(--muted)}
+input,select{font:17px var(--body);padding:13px 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
+.result{background:var(--soft);border-radius:14px;padding:14px;display:grid;gap:10px}
+.result pre{margin:0;white-space:pre-wrap;font:15px var(--body)}
+.result .row2{display:flex;gap:8px;flex-wrap:wrap}
+.result .btn{padding:11px 16px;font-size:15px}
+
+footer{background:#0e1230;color:rgba(255,255,255,.7);margin-top:84px;padding-block:34px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer .logo .w b{color:#fff}footer .logo .w small{color:rgba(255,255,255,.55)}
+.waf{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:8;width:58px;height:58px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 8px 22px -6px rgba(0,0,0,.45)}
+.waf svg{width:30px;height:30px}
+
+/* promo: first clients discount */
+.promo{margin-top:16px;background:#0e1230;color:#fff;border-radius:28px;padding:clamp(22px,3.5vw,40px);display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:28px;align-items:center;position:relative;overflow:hidden}
+.promo::before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:var(--orange);right:-90px;bottom:-110px}
+.promo > *{position:relative;min-width:0}
+@media (max-width:820px){.promo{grid-template-columns:1fr}}
+.promo small{font:700 13px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--sun)}
+.promo h2{color:#fff;margin:6px 0 10px;max-width:none}
+.promo h2 em{font-style:normal;color:var(--sun)}
+.promo p{margin:0;color:rgba(255,255,255,.82);max-width:52ch}
+.seats{display:grid;gap:12px;justify-items:start}
+.seats span{font-weight:600;color:rgba(255,255,255,.82)}
+.seats b{font:800 34px/1 var(--display)}
+.dots{display:flex;gap:8px}
+.dots i{width:26px;height:26px;border-radius:50%;background:var(--sun)}
+.dots i.taken{background:rgba(255,255,255,.18)}
+
+/* scroll reveal: content is visible at rest; the animation only plays as a block scrolls in */
+@media (prefers-reduced-motion:no-preference){
+  .in{animation:up .7s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+}
+
+/* industries */
+.ind{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:980px){.ind{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.ind{grid-template-columns:1fr}}
+.ind div{background:var(--soft);border-radius:22px;padding:22px;min-width:0;transition:transform .2s}
+.ind div:hover{transform:translateY(-3px)}
+.ind svg{width:46px;height:46px;padding:11px;border-radius:14px;background:var(--blue);color:#fff;margin-bottom:12px}
+.ind div:nth-child(even) svg{background:var(--orange)}
+.ind b{display:block;font:800 18px var(--display);margin-bottom:4px}
+.ind span{font-size:15px;color:var(--muted)}
+
+/* included */
+.inc{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:30px;align-items:start;background:var(--hero);color:#fff;border-radius:34px;padding:clamp(26px,4vw,52px)}
+@media (max-width:860px){.inc{grid-template-columns:1fr}}
+.inc h2{color:#fff}
+.inc .sub{color:rgba(255,255,255,.85)}
+.inc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:520px){.inc ul{grid-template-columns:1fr}}
+.inc li{background:rgba(255,255,255,.1);border-radius:16px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;font-weight:500}
+.inc li::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;background:var(--sun) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%230e1230' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;margin-top:2px}
+
+/* guarantees */
+.gar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.gar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.gar{grid-template-columns:1fr}}
+.gar div{border:2px solid var(--line);border-radius:22px;padding:24px;min-width:0}
+.gar b{display:block;font:800 30px var(--display);color:var(--orange);margin-bottom:6px}
+.gar h3{margin:0 0 6px;font-size:18px;font-weight:800}
+.gar p{margin:0;color:var(--muted);font-size:15px}
+
+/* extra services */
+.extra{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.extra{grid-template-columns:1fr}}
+.extra div{background:var(--soft);border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.extra h3{margin:0;font-size:19px;font-weight:800}
+.extra p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.extra span{font:800 20px var(--display);color:var(--blue)}
+
+/* photos */
+.photo{margin:22px 0 0}
+.photo img{display:block;width:100%;max-width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:24px;background:var(--soft)}
+.inc .photo img{aspect-ratio:4/3;border-radius:20px}
+.cities .photo{margin:0 0 16px}
+.cities .photo img{aspect-ratio:16/9}
+.credits{display:block;width:100%;font-size:12px;color:rgba(255,255,255,.5);margin-top:6px}
+.credits a{color:inherit}
+
+/* who we are / what we do */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+@media (max-width:820px){.about{grid-template-columns:1fr}}
+.about h2{margin-bottom:14px}
+.about p{margin:0;font-size:19px;color:var(--muted);max-width:46ch}
+.about ul{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:12px}
+.about li{display:flex;gap:14px;align-items:flex-start;font-size:18px}
+.about li b{flex:none;width:36px;height:36px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center;font:800 16px var(--display)}
+.about li:nth-child(2) b{background:var(--orange)}
+.about li:nth-child(3) b{background:var(--sun);color:#0e1230}
+.about li span strong{display:block}
+.about li span{color:var(--muted)}
+.about li span strong{color:var(--ink)}
+.tech{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.tech span{border:2px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:600}
+
+/* big projects */
+.big{background:#0e1230;color:#fff;border-radius:34px;padding:clamp(26px,4vw,52px);position:relative;overflow:hidden}
+.big::before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:var(--blue);right:-140px;top:-180px}
+.big > *{position:relative}
+.big h2{color:#fff}
+.big .sub{color:rgba(255,255,255,.82)}
+.big-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:28px 0}
+@media (max-width:980px){.big-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.big-grid{grid-template-columns:1fr}}
+.big-grid div{background:rgba(255,255,255,.08);border-radius:22px;padding:22px;min-width:0}
+.big-grid h3{margin:0 0 8px;font-size:19px;font-weight:800;color:var(--sun)}
+.big-grid ul{margin:0;padding-left:18px;display:grid;gap:5px;color:rgba(255,255,255,.85);font-size:15px}
+.big-foot{display:flex;gap:18px 28px;align-items:center;flex-wrap:wrap}
+.big-foot b{font:800 26px var(--display)}
+.big-foot span{color:rgba(255,255,255,.75);font-size:15px}
+
+/* cities */
+.cities{background:var(--sun);color:#0e1230;border-radius:34px;padding:clamp(26px,4vw,52px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;align-items:center}
+@media (max-width:860px){.cities{grid-template-columns:1fr}}
+.cities h2{color:#0e1230}
+.cities .sub{color:#3a3410}
+.city-list{display:flex;flex-wrap:wrap;gap:10px}
+.city-list span{background:#fff;color:#0e1230;border-radius:999px;padding:10px 18px;font-weight:700}
+.city-list span:first-child{background:#1f5eff;color:#fff}
+
+/* why us: studio vs us */
+.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:760px){.vs{grid-template-columns:1fr}}
+.vs .col{border-radius:28px;padding:28px;min-width:0}
+.vs .them{background:var(--soft)}
+.vs .us{background:var(--hero);color:#fff}
+.vs h3{margin:0 0 16px;font-weight:800;font-size:22px;display:flex;align-items:center;gap:10px}
+.vs h3 svg{width:34px;height:34px}
+.vs dl{margin:0;display:grid;gap:0}
+.vs dl div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.vs .us dl div{border-color:rgba(255,255,255,.18)}
+.vs dt{color:var(--muted)}
+.vs .us dt{color:rgba(255,255,255,.75)}
+.vs dd{margin:0;font-weight:700;text-align:right}
+.vs .us dd{color:var(--sun)}
+.vs .ai{margin:16px 0 0;font-size:15px;color:var(--muted);max-width:70ch}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></symbol>
+  <symbol id="logo-mark" viewBox="0 0 48 48">
+    <rect width="48" height="48" rx="14" fill="#1f5eff"/>
+    <rect x="9" y="12" width="30" height="23" rx="4.5" fill="none" stroke="#fff" stroke-width="3"/>
+    <path d="M9 18.5h30" stroke="#fff" stroke-width="3"/>
+    <circle cx="13.6" cy="15.3" r="1.25" fill="#fff"/><circle cx="17.4" cy="15.3" r="1.25" fill="#fff"/>
+    <path d="M25 23.5l12.5 4.6-5.4 1.9-1.9 5.4z" fill="#ff7a1a" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Сайт барои бизнес"><svg><use href="#logo-mark"/></svg><span class="w"><small>Сайт барои</small><b>бизнес<i>.</i></b></span></a>
+    <nav>
+      <a href="#work" data-k="nWork">Работы</a>
+      <a href="#for" data-k="nFor">Для кого</a>
+      <a href="#prices" data-k="nPrice">Цены</a>
+      <a href="#how" data-k="nHow">Как работаю</a>
+      <a href="#faq" data-k="nFaq">Вопросы</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Язык">
+      <button id="btn-tj" type="button" aria-pressed="false" data-lang="tj">TJ</button>
+      <button id="btn-ru" type="button" aria-pressed="true" data-lang="ru">RU</button>
+    </div>
+    <a class="btn orange" href="#req" data-k="nCta">Заказать сайт</a>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <div>
+      <h1><span data-k="h1a">Сайт для вашего бизнеса</span> <span data-k="h1b">за 3 дня</span></h1>
+      <p class="lead" data-k="lead">Делаю сайты для кафе, салонов, автосервисов и магазинов в Душанбе. На таджикском и русском, с меню, ценами и кнопкой WhatsApp.</p>
+      <div class="acts">
+        <a class="btn orange" href="https://wa.me/992876399991" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-k="ctaWa">Написать в WhatsApp</span></a>
+        <a class="btn ghost-w" href="#work" data-k="ctaWork">Смотреть работы</a>
+      </div>
+      <p class="hours" data-k="hours">Отвечаю каждый день с 9:00 до 21:00 · +992 87 639 99 91</p>
+    </div>
+    <figure>
+      <a class="frame" href="/kafe/" target="_blank" rel="noopener" aria-label="Пример сайта кофейни">
+        <div class="bar"><i></i><i></i><i></i><span>varzob-coffee.tj</span></div>
+        <div class="shot coffee">
+          <div class="h">Варзоб <span style="color:#e0a020">Кофе</span><small>RU · TJ</small></div>
+          <div class="top"><p class="t">Утро начинается с хорошего кофе</p><p class="p">Свежая обжарка, зелёный чай и самса из тандыра.</p><span class="b">Собрать заказ</span></div>
+          <div class="st"></div>
+          <div class="list"><span class="cat">Кофе</span><div class="row"><b>Капучино</b><span>18 SM</span></div><div class="row"><b>Латте с халвой</b><span>24 SM</span></div><div class="row"><b>Эспрессо</b><span>12 SM</span></div><div class="row"><b>Раф ванильный</b><span>22 SM</span></div></div>
+        </div>
+      </a>
+      <div class="sticker" data-k="sticker">Первый вариант бесплатно</div>
+    </figure>
+  </div>
+
+  <div class="tiles">
+    <div class="tile t1"><b>3</b><span data-k="tl1">дня, и сайт готов</span></div>
+    <div class="tile t2"><b>2</b><span data-k="tl2">языка: тоҷикӣ и русский</span></div>
+    <div class="tile t3"><b data-k="tl3b">Бесплатно</b><span data-k="tl3">первый вариант вашего сайта</span></div>
+  </div>
+
+  <div class="promo" id="promo">
+    <div>
+      <small data-k="prK">Только для первых 5 клиентов</small>
+      <h2><span data-k="prT1">Скидка</span> <em>30%</em> <span data-k="prT2">на любой сайт</span></h2>
+      <p data-k="prP">Сайт «Бизнес» за 2 100 TJS вместо 3 000. Взамен просим честный отзыв после запуска.</p>
+    </div>
+    <div class="seats">
+      <span data-k="prLeft">Осталось мест</span>
+      <b id="prCount"></b>
+      <div class="dots" id="prDots" aria-hidden="true"></div>
+      <a class="btn orange" id="prBtn" href="https://wa.me/992876399991" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-k="prBtn">Забрать скидку</span></a>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="about">
+      <div>
+        <h2 data-k="abT">Кто мы</h2>
+        <p data-k="abP">Мы — «Сайт барои бизнес», веб-студия в Душанбе. Делаем сайты и системы заказов для местного бизнеса: быстро, на двух языках и по понятной цене.</p>
+        <div class="tech" aria-label="Технологии"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>WhatsApp</span><span>2ГИС</span><span>Google</span></div>
+        <figure class="photo"><img src="img/workspace.jpg" alt="Ноутбук и телефон на рабочем столе" width="1200" height="795" loading="lazy"></figure>
+      </div>
+      <div>
+        <h2 data-k="doT">Чем мы занимаемся</h2>
+        <ul>
+          <li><b>1</b><span><strong data-k="do1">Сайты для бизнеса</strong><span data-k="do1d">Кафе, салоны, автосервисы, магазины, клиники</span></span></li>
+          <li><b>2</b><span><strong data-k="do2">Системы заказов</strong><span data-k="do2d">Доставка еды, онлайн-запись, интернет-магазины</span></span></li>
+          <li><b>3</b><span><strong data-k="do3">Оформление бренда</strong><span data-k="do3d">Логотип, Instagram, карточки в 2ГИС и Google</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="vs">
+    <div class="head"><div>
+      <h2 data-k="vsT">Почему с нами быстрее и выгоднее</h2>
+      <p class="sub" data-k="vsS">У нас отлаженный процесс и готовые наработки для кафе, салонов и сервисов. Поэтому работа, на которую у обычной студии уходит месяц, у нас занимает несколько дней.</p>
+    </div></div>
+    <div class="vs">
+      <div class="col them">
+        <h3 data-k="vsThem">Обычная веб-студия</h3>
+        <dl>
+          <div><dt data-k="vsR1">Срок</dt><dd data-k="vsA1">2–4 недели</dd></div>
+          <div><dt data-k="vsR2">Цена</dt><dd data-k="vsA2">от 5 000 TJS</dd></div>
+          <div><dt data-k="vsR3">Пример до оплаты</dt><dd data-k="vsA3">нет</dd></div>
+          <div><dt data-k="vsR4">Два языка</dt><dd data-k="vsA4">за доплату</dd></div>
+          <div><dt data-k="vsR5">Если не понравится</dt><dd data-k="vsA5">предоплата не вернётся</dd></div>
+        </dl>
+      </div>
+      <div class="col us">
+        <h3><svg aria-hidden="true"><use href="#logo-mark"/></svg><span>Сайт барои бизнес</span></h3>
+        <dl>
+          <div><dt data-k="vsR1">Срок</dt><dd data-k="vsB1">3 дня</dd></div>
+          <div><dt data-k="vsR2">Цена</dt><dd data-k="vsB2">от 1 500 TJS</dd></div>
+          <div><dt data-k="vsR3">Пример до оплаты</dt><dd data-k="vsB3">бесплатно</dd></div>
+          <div><dt data-k="vsR4">Два языка</dt><dd data-k="vsB4">уже включены</dd></div>
+          <div><dt data-k="vsR5">Если не понравится</dt><dd data-k="vsB5">ничего не платите</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p class="ai" data-k="vsNote">Сроки и цены студий указаны примерно, по рынку Душанбе. Точные условия у каждой студии свои.</p>
+  </section>
+
+  <section>
+    <div class="why">
+      <div class="head">
+        <div>
+          <h2 data-k="whyT">Зачем сайт, если есть Instagram?</h2>
+          <p class="sub" data-k="whyP">В Instagram цену приходится спрашивать в директ. Многие не пишут и уходят туда, где всё видно сразу. На сайте меню, цены, адрес и кнопка записи на одном экране. Потяните ползунок и сравните.</p>
+        </div>
+      </div>
+      <div class="ba" id="ba">
+        <div class="pane" aria-hidden="true">
+          <div class="ig">
+            <div class="ig-top"><div class="ig-av"></div><div><b>kafe.dushanbe</b><span>124 публикации · 2 310 подписчиков</span></div></div>
+            <p class="ig-bio">Кафе в Душанбе. Цены в директ. Доставка есть.</p>
+            <div class="ig-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+        <div class="pane site" aria-hidden="true">
+          <div class="shot coffee">
+            <div class="h">Варзоб <span style="color:#e0a020">Кофе</span><small>RU · TJ</small></div>
+            <div class="top"><p class="t">Утро начинается с хорошего кофе</p><p class="p">Меню, цены, адрес и заказ в WhatsApp на одном экране.</p><span class="b">Собрать заказ</span></div>
+            <div class="st"></div>
+            <div class="list"><div class="row"><b>Капучино</b><span>18 SM</span></div><div class="row"><b>Латте с халвой</b><span>24 SM</span></div><div class="row"><b>Ширчой</b><span>16 SM</span></div><div class="row"><b>Самса</b><span>8 SM</span></div><div class="row"><b>Круассан</b><span>14 SM</span></div><div class="row"><b>Медовик</b><span>20 SM</span></div></div>
+          </div>
+        </div>
+        <div class="handle" aria-hidden="true"></div>
+        <span class="tagl" data-k="baL">Только Instagram</span><span class="tagr" data-k="baR">Свой сайт</span>
+        <input type="range" id="baRange" min="0" max="100" value="50" aria-label="Сравнить Instagram и сайт">
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="head">
+      <div>
+        <h2 data-k="workT">Примеры работ</h2>
+        <p class="sub" data-k="workS">Кафе, салон и автосервис придуманы, но сайты настоящие: откройте на телефоне и всё понажимайте.</p>
+      </div>
+    </div>
+    <div class="cases">
+      <a class="case c1" href="/kafe/" target="_blank" rel="noopener">
+        <h3 data-k="w1t">Кофейня</h3>
+        <p data-k="w1p">Гость собирает заказ, сайт сам считает сумму и отправляет её в WhatsApp.</p>
+        <span class="go" data-k="open">Открыть сайт →</span>
+        <div class="frame"><div class="bar"><i></i><i></i><i></i><span>varzob-coffee.tj</span></div>
+          <div class="shot coffee"><div class="h">Варзоб <span style="color:#e0a020">Кофе</span></div>
+            <div class="list"><span class="cat">Ваш заказ</span><div class="row"><b>Капучино × 2</b><span>36 SM</span></div><div class="row"><b>Самса × 1</b><span>8 SM</span></div><div class="row"><b>Итого</b><span>44 SM</span></div></div>
+            <div style="padding:0 1.4em 1.6em"><span class="b">Заказать в WhatsApp</span></div></div></div>
+      </a>
+      <a class="case c2" href="/salon/" target="_blank" rel="noopener">
+        <h3 data-k="w2t">Салон красоты</h3>
+        <p data-k="w2p">Запись в четыре шага: услуга, мастер, день и свободное время.</p>
+        <span class="go" data-k="open">Открыть сайт →</span>
+        <div class="frame"><div class="bar"><i></i><i></i><i></i><span>yosuman-beauty.tj</span></div>
+          <div class="shot salon"><div class="h">Ёсуман</div>
+            <div class="top"><p class="t">Ваше время для <em>себя</em></p></div>
+            <div class="chips"><span>Стрижка</span><span class="on">Маникюр</span><span class="on">Нигора</span><span>Завтра</span><span class="on">14:30</span></div></div></div>
+      </a>
+      <a class="case c3" href="/avto/" target="_blank" rel="noopener">
+        <h3 data-k="w3t">Автосервис</h3>
+        <p data-k="w3p">Клиент отмечает работы и сразу видит примерную цену ремонта.</p>
+        <span class="go" data-k="open">Открыть сайт →</span>
+        <div class="frame"><div class="bar"><i></i><i></i><i></i><span>sino-avto.tj</span></div>
+          <div class="shot auto"><div class="dark"><div class="h">СИНО <span style="color:#f2c200">АВТО</span></div></div><div class="hz"></div>
+            <div class="list"><span class="cat">Расчёт</span><div class="row on"><b>Диагностика</b><span>80 SM</span></div><div class="row"><b>Замена масла</b><span>60 SM</span></div><div class="row on"><b>Колодки</b><span>120 SM</span></div></div></div></div>
+      </a>
+    </div>
+  </section>
+
+  <section id="for">
+    <div class="head"><div>
+      <h2 data-k="indT">Для кого мы делаем сайты</h2>
+      <p class="sub" data-k="indS">У нас есть готовые решения для разных видов бизнеса. Выберите свой.</p>
+    </div></div>
+    <div class="ind">
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 11h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><b data-k="i1">Кафе и рестораны</b><span data-k="i1d">Меню, заказ и доставка через WhatsApp</span></div>
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="17" r="3"/><path d="M8.5 8.5L20 18M8.5 15.5L20 6"/></g></svg><b data-k="i2">Салоны красоты</b><span data-k="i2d">Услуги, мастера и онлайн-запись</span></div>
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16V11l2-5h10l2 5v5zM3 11h18"/><circle cx="7.5" cy="16.5" r="2"/><circle cx="16.5" cy="16.5" r="2"/></g></svg><b data-k="i3">Автосервисы</b><span data-k="i3d">Прайс, калькулятор и заявка на ремонт</span></div>
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></g></svg><b data-k="i4">Магазины</b><span data-k="i4d">Каталог товаров с ценами и фото</span></div>
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 3 1.5 4 2 7s1 6.5 2.5 6.5S9 17 12 17s3 4 4.5 4 2-3.5 2.5-6.5 2-4 2-7C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><b data-k="i5">Стоматологии и клиники</b><span data-k="i5d">Врачи, услуги и запись на приём</span></div>
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h7a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H3zM21 5h-7a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h7z"/></g></svg><b data-k="i6">Учебные центры</b><span data-k="i6d">Курсы, расписание и запись учеников</span></div>
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6M3 21h18"/></g></svg><b data-k="i7">Строительство и ремонт</b><span data-k="i7d">Работы, фото объектов и расчёт цены</span></div>
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="2"/></g></svg><b data-k="i8">Гостиницы и туризм</b><span data-k="i8d">Номера, туры по горам и бронирование</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="inc">
+      <div>
+        <h2 data-k="incT">Что входит в каждый сайт</h2>
+        <p class="sub" data-k="incS">Это есть даже в самом простом тарифе «Визитка». Без скрытых доплат.</p>
+        <figure class="photo"><img src="img/phone.jpg" alt="Человек пользуется сайтом на смартфоне" width="1200" height="800" loading="lazy"></figure>
+      </div>
+      <ul>
+        <li data-k="inc1">Удобная версия для телефона</li>
+        <li data-k="inc2">Кнопка WhatsApp и звонка</li>
+        <li data-k="inc3">Адрес на карте 2ГИС и Google</li>
+        <li data-k="inc4">Защищённое соединение (https)</li>
+        <li data-k="inc5">Быстрая загрузка страниц</li>
+        <li data-k="inc6">Ссылки на Instagram и Telegram</li>
+        <li data-k="inc7">Настройка, чтобы вас находили в Google</li>
+        <li data-k="inc8">Помощь первые 2 недели после запуска</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><div>
+      <h2 data-k="garT">Наши гарантии</h2>
+      <p class="sub" data-k="garS">Мы отвечаем за результат и прописываем это заранее.</p>
+    </div></div>
+    <div class="gar">
+      <div><b>0 TJS</b><h3 data-k="g1">Если не понравится</h3><p data-k="g1d">Первый вариант бесплатный. Не подошёл, ничего не платите.</p></div>
+      <div><b data-k="g2b">3 дня</b><h3 data-k="g2">Точные сроки</h3><p data-k="g2d">Называем срок заранее и укладываемся в него.</p></div>
+      <div><b>50/50</b><h3 data-k="g3">Честная оплата</h3><p data-k="g3d">Половина перед началом, половина после того, как вы приняли сайт.</p></div>
+      <div><b data-k="g4b">Ваш</b><h3 data-k="g4">Сайт принадлежит вам</h3><p data-k="g4d">Все файлы и адрес сайта оформляются на вас, а не на нас.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><div>
+      <h2 data-k="exT">Дополнительные услуги</h2>
+      <p class="sub" data-k="exS">Можно заказать вместе с сайтом или отдельно.</p>
+    </div></div>
+    <div class="extra">
+      <div><h3 data-k="ex1">Логотип</h3><p data-k="ex1d">Простой и запоминающийся знак для вывески, Instagram и визиток.</p><span>500 TJS</span></div>
+      <div><h3 data-k="ex2">Оформление Instagram</h3><p data-k="ex2d">Аватарка, описание профиля, обложки для сторис и первые посты.</p><span>400 TJS</span></div>
+      <div><h3 data-k="ex3">Карточка в 2ГИС и Google</h3><p data-k="ex3d">Добавим ваш бизнес на карты с фото, часами работы и ссылкой на сайт.</p><span>300 TJS</span></div>
+      <div><h3 data-k="ex4">Меню и прайс для печати</h3><p data-k="ex4d">Красивое меню или прайс-лист в том же стиле, что и сайт.</p><span>300 TJS</span></div>
+      <div><h3 data-k="ex5">Английская версия</h3><p data-k="ex5d">Третий язык для туристов и иностранных гостей.</p><span>400 TJS</span></div>
+      <div><h3 data-k="ex6">Ведение сайта</h3><p data-k="ex6d">Меняем цены, меню, фото и акции, когда попросите.</p><span data-k="ex6p">300 TJS / мес.</span></div>
+    </div>
+  </section>
+
+  <section id="big">
+    <div class="big">
+      <h2 data-k="bgT">Крупные проекты для компаний</h2>
+      <p class="sub" data-k="bgS">Делаем не только сайты-визитки. Для сетей, служб доставки и магазинов собираем полноценные системы заказов.</p>
+      <div class="big-grid">
+        <div><h3 data-k="bg1">Доставка еды</h3><ul><li data-k="bg1a">Меню с корзиной и оплатой</li><li data-k="bg1b">Зоны и стоимость доставки</li><li data-k="bg1c">Статус заказа для клиента</li><li data-k="bg1d">Панель заказов для кухни</li></ul></div>
+        <div><h3 data-k="bg2">Интернет-магазин</h3><ul><li data-k="bg2a">Каталог с фильтрами</li><li data-k="bg2b">Корзина и оформление заказа</li><li data-k="bg2c">Учёт товаров и остатков</li><li data-k="bg2d">Акции и промокоды</li></ul></div>
+        <div><h3 data-k="bg3">Запись и клиенты</h3><ul><li data-k="bg3a">Онлайн-запись на несколько филиалов</li><li data-k="bg3b">База клиентов и история визитов</li><li data-k="bg3c">Напоминания в WhatsApp</li><li data-k="bg3d">Отчёты для владельца</li></ul></div>
+        <div><h3 data-k="bg4">Мобильное приложение</h3><ul><li data-k="bg4a">Устанавливается на iPhone и Android</li><li data-k="bg4b">Иконка с вашим логотипом</li><li data-k="bg4c">Заказ в пару касаний</li><li data-k="bg4d">App Store и Google Play отдельным этапом</li></ul></div>
+      </div>
+      <div class="big-foot">
+        <a class="btn orange" id="bgBtn" href="https://wa.me/992876399991" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-k="bgBtn">Обсудить проект</span></a>
+        <div><b data-k="bgP">от 10 000 TJS</b><br><span data-k="bgN">Срок от 3 недель. Цену и сроки считаем под каждый проект.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cities">
+      <div>
+        <h2 data-k="ctT">Работаем по всему Таджикистану</h2>
+        <p class="sub" data-k="ctS">Всё делаем онлайн: общаемся в WhatsApp, показываем сайт по ссылке. Неважно, в каком вы городе.</p>
+      </div>
+      <div>
+      <figure class="photo"><img src="img/dushanbe.jpg" alt="Улица в центре Душанбе" width="1200" height="673" loading="lazy"></figure>
+      <div class="city-list">
+        <span data-k="c1">Душанбе</span><span data-k="c2">Худжанд</span><span data-k="c3">Бохтар</span><span data-k="c4">Куляб</span><span data-k="c5">Истаравшан</span><span data-k="c6">Турсунзаде</span><span data-k="c7">Хорог</span><span data-k="c8">Пенджикент</span><span data-k="c9">Вахдат</span><span data-k="c10">Гиссар</span>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="prices">
+    <div class="head"><div>
+      <h2 data-k="priceT">Цены</h2>
+      <p class="sub" data-k="priceS">Половина перед началом, половина когда сайт готов. Alif, DC, Корти Милли или наличными.</p>
+    </div></div>
+    <div class="plans">
+      <div class="plan">
+        <h3 data-k="p1">Визитка</h3><span class="time" data-k="p1d">2–3 дня</span>
+        <div class="price"><span data-count="1500">1 500</span> <small>TJS</small></div>
+        <ul><li data-k="p1a">Одна страница</li><li data-k="p1b">Контакты, карта, WhatsApp</li><li data-k="p1c">Удобно с телефона</li></ul>
+        <a class="btn ghost" href="#req" data-k="choose">Выбрать</a>
+      </div>
+      <div class="plan hot">
+        <span class="badge" data-k="pop">Чаще берут</span>
+        <h3 data-k="p2">Бизнес</h3><span class="time" data-k="p2d">3–5 дней</span>
+        <div class="price"><span data-count="3000">3 000</span> <small>TJS</small></div>
+        <ul><li data-k="p2a">Меню или прайс, фото</li><li data-k="p2b">Тоҷикӣ и русский</li><li data-k="p2c">Онлайн-запись или заказ</li><li data-k="p2e">Поиск в Google</li></ul>
+        <a class="btn orange" href="#req" data-k="choose">Выбрать</a>
+      </div>
+      <div class="plan">
+        <h3 data-k="p3">Под ключ</h3><span class="time" data-k="p3d">до 10 дней</span>
+        <div class="price"><span data-k="from">от</span> <span data-count="5000">5 000</span> <small>TJS</small></div>
+        <ul><li data-k="p3a">Несколько страниц</li><li data-k="p3b">Домен и хостинг на год</li><li data-k="p3c">Оформление Instagram</li></ul>
+        <a class="btn ghost" href="#req" data-k="choose">Выбрать</a>
+      </div>
+    </div>
+    <p class="note" data-k="sup">Поддержка после запуска: меняю цены, меню и фото, когда попросите. 300 TJS в месяц.</p>
+
+    <div class="calc" id="calc">
+      <div>
+        <h3 data-k="calcT">Посчитайте свой вариант</h3>
+        <span class="sub" data-k="calcS">Выберите тариф и дополнения, цена пересчитается сразу.</span>
+        <div class="group"><span data-k="kPlanL">Тариф</span><div class="opts" id="kPlans"></div></div>
+        <div class="group"><span data-k="kExL">Дополнительно</span><div class="opts" id="kExtras"></div></div>
+      </div>
+      <div class="total">
+        <small data-k="kTot">Итого</small>
+        <div class="sum" id="kTotal"></div>
+        <a class="btn orange" id="kSend" href="https://wa.me/992876399991" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-k="kSendB">Отправить расчёт</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="head"><h2 data-k="howT">Как я работаю</h2></div>
+    <ol class="steps">
+      <li data-k="how1">Вы пишете мне в WhatsApp: что за бизнес и что нужно на сайте.</li>
+      <li data-k="how2">На следующий день присылаю первый вариант. Бесплатно.</li>
+      <li data-k="how3">Нравится: вы платите половину и присылаете фото, меню и цены.</li>
+      <li data-k="how4">Через 2–3 дня сайт готов. Подключаю адрес и ставлю ссылку в ваш Instagram.</li>
+    </ol>
+  </section>
+
+  <section id="faq">
+    <div class="head"><h2 data-k="faqT">Частые вопросы</h2></div>
+    <div class="faq">
+      <details open><summary data-k="q1">У меня нет хороших фото. Что делать?</summary><p data-k="a1">Можно начать с фото с телефона, я их обработаю. Потом заменим на профессиональные.</p></details>
+      <details><summary data-k="q2">Что нужно от меня?</summary><p data-k="a2">Название, логотип если есть, фото, цены и контакты. Если чего-то нет, помогу подготовить.</p></details>
+      <details><summary data-k="q3">Можно потом менять цены и меню?</summary><p data-k="a3">Да. С поддержкой я вношу изменения в тот же день.</p></details>
+      <details><summary data-k="q4">А если не понравится?</summary><p data-k="a4">Первый вариант бесплатный. Не понравится, ничего не платите.</p></details>
+    </div>
+  </section>
+
+  <section id="req">
+    <div class="contact">
+      <div>
+        <h2 data-k="conT">Давайте сделаем ваш сайт</h2>
+        <p class="sub" data-k="conP">Напишите, что у вас за бизнес. Завтра покажу первый вариант.</p>
+        <span class="bigtel">+992 87 639 99 91</span>
+        <a class="btn white" href="https://wa.me/992876399991" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-k="conWa">Написать в WhatsApp</span></a>
+      </div>
+      <form id="f" novalidate>
+        <h3 data-k="formT">Оставить заявку</h3>
+        <label><span data-k="lName">Ваше имя</span><input id="name" autocomplete="off" value="Шахло"></label>
+        <label><span data-k="lBiz">Название бизнеса</span><input id="biz" autocomplete="off" value="Кафе у дома"></label>
+        <label><span data-k="lPlan">Тариф</span>
+          <select id="plan"><option data-k="p1">Визитка</option><option data-k="p2" selected>Бизнес</option><option data-k="p3">Под ключ</option><option data-k="unsure">Пока не знаю</option></select></label>
+        <button class="btn blue" type="submit" data-k="send">Подготовить заявку</button>
+        <div class="result" id="res" hidden>
+          <strong data-k="resT">Заявка готова</strong>
+          <pre id="msg"></pre>
+          <div class="row2">
+            <a class="btn orange" id="wa" href="https://wa.me/992876399991" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-k="waB">Отправить в WhatsApp</span></a>
+            <button class="btn ghost" type="button" id="copy" data-k="cpB">Скопировать</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Сайт барои бизнес"><svg><use href="#logo-mark"/></svg><span class="w"><small>Сайт барои</small><b>бизнес<i>.</i></b></span></a>
+    <span data-k="foot">© 2026 Душанбе · WhatsApp +992 87 639 99 91</span>
+    <span class="credits">Фото: <a href="https://commons.wikimedia.org/wiki/File:Downtown_Dushanbe_2.jpg" target="_blank" rel="noopener">Prince Roy</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Laptop_on_a_desk_(Unsplash).jpg" target="_blank" rel="noopener">Aleksi Tappura</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Smartphone_Use.jpg" target="_blank" rel="noopener">Océanos y dados</a> (CC0), Wikimedia Commons</span>
+  </div>
+</footer>
+
+<a class="waf" href="https://wa.me/992876399991" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a>
+
+<script>
+const T={tj:{
+nWork:"Корҳо",nFor:"Барои кӣ",nPrice:"Нархҳо",nHow:"Чӣ тавр кор мекунам",nFaq:"Саволҳо",nCta:"Фармоиши сайт",
+h1a:"Сайт барои бизнеси шумо",h1b:"дар 3 рӯз",
+lead:"Барои қаҳвахона, салон, автосервис ва мағозаҳои Душанбе сайт месозам. Бо забонҳои тоҷикӣ ва русӣ, бо меню, нарх ва тугмаи WhatsApp.",
+ctaWa:"Навиштан ба WhatsApp",ctaWork:"Дидани корҳо",hours:"Ҳар рӯз аз 9:00 то 21:00 ҷавоб медиҳам · +992 87 639 99 91",
+sticker:"Варианти аввал ройгон",tl1:"рӯз ва сайт тайёр",tl2:"забон: тоҷикӣ ва русӣ",tl3b:"Ройгон",tl3:"варианти аввали сайти шумо",
+abT:"Мо кистем",abP:"Мо — «Сайт барои бизнес», веб-студия дар Душанбе. Барои бизнеси маҳаллӣ сайт ва системаҳои фармоиш месозем: зуд, бо ду забон ва бо нархи фаҳмо.",
+doT:"Мо бо чӣ машғулем",do1:"Сайт барои бизнес",do1d:"Қаҳвахона, салон, автосервис, мағоза, клиника",do2:"Системаҳои фармоиш",do2d:"Расонидани хӯрок, сабти онлайн, интернет-мағоза",do3:"Ороиши бренд",do3d:"Логотип, Instagram, корт дар 2GIS ва Google",
+vsT:"Чаро бо мо зудтар ва фоиданоктар аст",vsS:"Мо раванди пухта ва коркардҳои тайёр барои қаҳвахона, салон ва сервисҳо дорем. Аз ин рӯ коре, ки студияи оддӣ як моҳ мекунад, мо дар чанд рӯз анҷом медиҳем.",
+vsThem:"Веб-студияи оддӣ",vsR1:"Мӯҳлат",vsR2:"Нарх",vsR3:"Намуна пеш аз пардохт",vsR4:"Ду забон",vsR5:"Агар маъқул нашавад",
+vsA1:"2–4 ҳафта",vsA2:"аз 5 000 TJS",vsA3:"нест",vsA4:"бо пардохти иловагӣ",vsA5:"пешпардохт барнамегардад",
+vsB1:"3 рӯз",vsB2:"аз 1 500 TJS",vsB3:"ройгон",vsB4:"аллакай дохил аст",vsB5:"чизе намепардозед",
+vsNote:"Мӯҳлат ва нархи студияҳо тахминан, аз рӯи бозори Душанбе нишон дода шудаанд. Шартҳои ҳар студия гуногун аст.",
+whyT:"Агар Instagram бошад, сайт барои чӣ?",whyP:"Дар Instagram нархро бояд дар директ пурсид. Бисёриҳо наменависанд ва ба ҷое мераванд, ки ҳама чиз фавран намоён аст. Дар сайт меню, нарх, суроға ва тугмаи сабт дар як экран. Лағжандаро кашед ва муқоиса кунед.",
+baL:"Танҳо Instagram",baR:"Сайти худ",
+workT:"Намунаи корҳо",workS:"Қаҳвахона, салон ва автосервис хаёлӣ ҳастанд, аммо сайтҳо ҳақиқӣ: дар телефон кушоед ва ҳама чизро санҷед.",
+w1t:"Қаҳвахона",w1p:"Меҳмон фармоиш ҷамъ мекунад, сайт худаш маблағро ҳисоб карда ба WhatsApp мефиристад.",
+w2t:"Салони зебоӣ",w2p:"Сабт дар чор қадам: хизмат, усто, рӯз ва вақти холӣ.",
+w3t:"Автосервис",w3p:"Мизоҷ корҳоро қайд мекунад ва фавран нархи тахминии таъмирро мебинад.",open:"Кушодани сайт →",
+prK:"Танҳо барои 5 мизоҷи аввал",prT1:"Тахфифи",prT2:"барои ҳар сайт",
+prP:"Сайти «Бизнес» бо 2 100 TJS ба ҷои 3 000. Ба ивазаш баъд аз оғоз фикри ҳалоли шуморо мепурсем.",prLeft:"Ҷойҳои боқимонда",prBtn:"Гирифтани тахфиф",
+indT:"Барои кӣ мо сайт месозем",indS:"Мо барои навъҳои гуногуни бизнес қарорҳои тайёр дорем. Худатонро интихоб кунед.",
+i1:"Қаҳвахона ва тарабхона",i1d:"Меню, фармоиш ва расонидан тавассути WhatsApp",i2:"Салонҳои зебоӣ",i2d:"Хизматҳо, устоҳо ва сабти онлайн",
+i3:"Автосервисҳо",i3d:"Нархнома, ҳисобкунак ва дархост барои таъмир",i4:"Мағозаҳо",i4d:"Каталоги мол бо нарх ва сурат",
+i5:"Стоматология ва клиникаҳо",i5d:"Духтурон, хизматҳо ва сабт ба қабул",i6:"Марказҳои таълимӣ",i6d:"Курсҳо, ҷадвал ва сабти хонандагон",
+i7:"Сохтмон ва таъмир",i7d:"Корҳо, сурати объектҳо ва ҳисоби нарх",i8:"Меҳмонхона ва сайёҳӣ",i8d:"Ҳуҷраҳо, сайёҳат ба кӯҳҳо ва брон",
+incT:"Дар ҳар сайт чӣ дохил мешавад",incS:"Ин ҳатто дар тарифи соддатарини «Визитка» ҳаст. Бе пардохтҳои пинҳонӣ.",
+inc1:"Версияи қулай барои телефон",inc2:"Тугмаи WhatsApp ва занг",inc3:"Суроға дар харитаи 2GIS ва Google",inc4:"Пайвасти ҳифзшуда (https)",
+inc5:"Боршавии зуди саҳифаҳо",inc6:"Пайванд ба Instagram ва Telegram",inc7:"Танзим, то шуморо дар Google ёбанд",inc8:"Кӯмак дар 2 ҳафтаи аввал баъд аз оғоз",
+garT:"Кафолатҳои мо",garS:"Мо барои натиҷа ҷавоб медиҳем ва инро пешакӣ менависем.",
+g1:"Агар маъқул нашавад",g1d:"Варианти аввал ройгон. Мувофиқ наомад, чизе намепардозед.",g2b:"3 рӯз",g2:"Мӯҳлати аниқ",g2d:"Мӯҳлатро пешакӣ мегӯем ва дар он ҷой мешавем.",
+g3:"Пардохти ҳалол",g3d:"Нисф пеш аз оғоз, нисф баъд аз он ки шумо сайтро қабул кардед.",g4b:"Аз шумо",g4:"Сайт моли шумост",g4d:"Ҳамаи файлҳо ва суроғаи сайт ба номи шумо расмӣ мешаванд, на ба номи мо.",
+exT:"Хизматҳои иловагӣ",exS:"Метавон якҷоя бо сайт ё алоҳида фармоиш дод.",
+ex1:"Логотип",ex1d:"Нишони содда ва дар хотир мондагор барои лавҳа, Instagram ва корти визитӣ.",ex2:"Ороиши Instagram",ex2d:"Аватар, тавсифи профил, муқоваҳо барои сторис ва постҳои аввал.",
+ex3:"Корт дар 2GIS ва Google",ex3d:"Бизнеси шуморо бо сурат, соатҳои корӣ ва пайванд ба сайт ба харита илова мекунем.",ex4:"Меню ва нархнома барои чоп",ex4d:"Меню ё нархномаи зебо дар ҳамон услуби сайт.",
+ex5:"Версияи англисӣ",ex5d:"Забони сеюм барои сайёҳон ва меҳмонони хориҷӣ.",ex6:"Пешбурди сайт",ex6d:"Нарх, меню, сурат ва аксияҳоро вақте ки хоҳед, иваз мекунем.",ex6p:"300 TJS / моҳ",
+bgT:"Лоиҳаҳои калон барои ширкатҳо",bgS:"Мо на танҳо сайтҳои визитка месозем. Барои шабакаҳо, хадамоти расонидан ва мағозаҳо системаҳои пурраи фармоиш месозем.",
+bg1:"Расонидани хӯрок",bg1a:"Меню бо сабад ва пардохт",bg1b:"Минтақаҳо ва нархи расонидан",bg1c:"Ҳолати фармоиш барои мизоҷ",bg1d:"Панели фармоишҳо барои ошхона",
+bg2:"Интернет-мағоза",bg2a:"Каталог бо филтрҳо",bg2b:"Сабад ва расмикунии фармоиш",bg2c:"Ҳисоби мол ва бақия",bg2d:"Аксияҳо ва промокодҳо",
+bg3:"Сабт ва мизоҷон",bg3a:"Сабти онлайн барои якчанд филиал",bg3b:"Базаи мизоҷон ва таърихи ташрифҳо",bg3c:"Ёдраскуниҳо дар WhatsApp",bg3d:"Ҳисоботҳо барои соҳиб",
+bg4:"Барномаи мобилӣ",bg4a:"Дар iPhone ва Android насб мешавад",bg4b:"Нишона бо логотипи шумо",bg4c:"Фармоиш бо чанд ламс",bg4d:"App Store ва Google Play марҳилаи алоҳида",
+bgBtn:"Муҳокимаи лоиҳа",bgP:"аз 10 000 TJS",bgN:"Мӯҳлат аз 3 ҳафта. Нарх ва мӯҳлатро барои ҳар лоиҳа ҳисоб мекунем.",
+ctT:"Дар тамоми Тоҷикистон кор мекунем",ctS:"Ҳама корро онлайн мекунем: дар WhatsApp сӯҳбат мекунем, сайтро бо пайванд нишон медиҳем. Фарқ надорад, ки шумо дар кадом шаҳр ҳастед.",
+c1:"Душанбе",c2:"Хуҷанд",c3:"Бохтар",c4:"Кӯлоб",c5:"Истаравшан",c6:"Турсунзода",c7:"Хоруғ",c8:"Панҷакент",c9:"Ваҳдат",c10:"Ҳисор",
+priceT:"Нархҳо",priceS:"Нисф пеш аз оғоз, нисф вақте ки сайт тайёр шуд. Alif, DC, Корти Миллӣ ё нақд.",
+p1:"Визитка",p1d:"2–3 рӯз",p1a:"Як саҳифа",p1b:"Тамос, харита, WhatsApp",p1c:"Дар телефон қулай",choose:"Интихоб",
+pop:"Бештар мегиранд",p2:"Бизнес",p2d:"3–5 рӯз",p2a:"Меню ё нархнома, сурат",p2b:"Тоҷикӣ ва русӣ",p2c:"Сабт ё фармоиши онлайн",p2e:"Ҷустуҷӯ дар Google",
+p3:"Пурра",p3d:"то 10 рӯз",from:"аз",p3a:"Якчанд саҳифа",p3b:"Домен ва хостинг барои як сол",p3c:"Ороиши Instagram",
+sup:"Дастгирӣ баъд аз оғоз: нарх, меню ва суратҳоро вақте ки хоҳед, иваз мекунам. 300 TJS дар як моҳ.",
+calcT:"Варианти худро ҳисоб кунед",calcS:"Тариф ва иловаҳоро интихоб кунед, нарх фавран нав мешавад.",kPlanL:"Тариф",kExL:"Иловагӣ",kTot:"Ҳамагӣ",kSendB:"Фиристодани ҳисоб",
+howT:"Чӣ тавр кор мекунам",how1:"Шумо ба ман дар WhatsApp менависед: чӣ бизнес ва дар сайт чӣ лозим.",how2:"Рӯзи дигар варианти аввалро мефиристам. Ройгон.",
+how3:"Маъқул шуд: нисфашро мепардозед ва сурат, меню ва нархҳоро мефиристед.",how4:"Баъд аз 2–3 рӯз сайт тайёр. Суроғаро пайваст мекунам ва пайвандро ба Instagram-и шумо мегузорам.",
+faqT:"Саволҳои зиёд",q1:"Ман суратҳои хуб надорам. Чӣ кор кунам?",a1:"Метавон бо суратҳои телефон оғоз кард, ман онҳоро коркард мекунам. Баъдтар бо суратҳои касбӣ иваз мекунем.",
+q2:"Аз ман чӣ лозим?",a2:"Ном, логотип агар бошад, сурат, нарх ва тамос. Агар чизе набошад, дар тайёр кардан кӯмак мекунам.",
+q3:"Баъдтар нарх ва менюро иваз кардан мумкин аст?",a3:"Ҳа. Бо дастгирӣ ман тағйиротро ҳамон рӯз ворид мекунам.",
+q4:"Агар маъқул нашавад-чӣ?",a4:"Варианти аввал ройгон аст. Агар маъқул нашавад, чизе намепардозед.",
+conT:"Биёед сайти шуморо созем",conP:"Нависед, ки бизнеси шумо чист. Пагоҳ варианти аввалро нишон медиҳам.",conWa:"Навиштан ба WhatsApp",
+formT:"Гузоштани дархост",lName:"Номи шумо",lBiz:"Номи бизнес",lPlan:"Тариф",unsure:"Ҳоло намедонам",
+send:"Омода кардани дархост",resT:"Дархост тайёр аст",waB:"Фиристодан ба WhatsApp",cpB:"Нусха бардоштан",
+foot:"© 2026 Душанбе · WhatsApp +992 87 639 99 91",
+msg:(n,b,p)=>`Ассалому алейкум! Ман ${n}, аз «${b}». Ба ман сайт лозим аст, тариф: ${p}.`}};
+const ru={};document.querySelectorAll('[data-k]').forEach(el=>{ru[el.dataset.k]??=el.textContent});
+ru.msg=(n,b,p)=>`Здравствуйте! Меня зовут ${n}, я из «${b}». Хочу сайт, тариф: ${p}.`;T.ru=ru;
+let lang='ru';
+const $=id=>document.getElementById(id);
+
+const PLANS=[{id:'card',ru:'Визитка',tj:'Визитка',p:1500},{id:'biz',ru:'Бизнес',tj:'Бизнес',p:3000},{id:'full',ru:'Под ключ',tj:'Пурра',p:5000}];
+const EXTRAS=[
+ {id:'book',ru:'Онлайн-запись',tj:'Сабти онлайн',p:500,inc:['biz','full']},
+ {id:'cart',ru:'Корзина заказа',tj:'Сабади фармоиш',p:700},
+ {id:'pcalc',ru:'Калькулятор цен',tj:'Ҳисобкунаки нарх',p:600},
+ {id:'en',ru:'Английская версия',tj:'Версияи англисӣ',p:400},
+ {id:'logo',ru:'Логотип',tj:'Логотип',p:500},
+ {id:'domain',ru:'Домен и хостинг на год',tj:'Домен ва хостинг барои як сол',p:600,inc:['full']},
+ {id:'sup3',ru:'Поддержка 3 месяца',tj:'Дастгирӣ 3 моҳ',p:900}];
+const KX={ru:{inc:'уже входит',hello:'Здравствуйте! Мой расчёт сайта:',plan:'Тариф',tot:'Итого'},tj:{inc:'дохил аст',hello:'Ассалому алейкум! Ҳисоби сайти ман:',plan:'Тариф',tot:'Ҳамагӣ'}};
+let kPlan='biz';const kEx=new Set(['cart','logo']);
+const fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+function renderCalc(){
+  const fid=document.activeElement&&document.activeElement.id;
+  const P=$('kPlans'),E=$('kExtras');P.innerHTML='';E.innerHTML='';
+  PLANS.forEach(p=>{const l=document.createElement('label');l.className='opt';
+    l.innerHTML=`<input type="radio" name="kplan" id="kp-${p.id}" ${p.id===kPlan?'checked':''}>${p[lang]} <span>${fmt(p.p)}</span>`;
+    l.querySelector('input').addEventListener('change',()=>{kPlan=p.id;renderCalc();});P.appendChild(l);});
+  EXTRAS.forEach(x=>{const inc=!!(x.inc&&x.inc.includes(kPlan));const l=document.createElement('label');l.className='opt';
+    l.innerHTML=`<input type="checkbox" id="kx-${x.id}" ${inc||kEx.has(x.id)?'checked':''} ${inc?'disabled':''}>${x[lang]} ${inc?`<em>${KX[lang].inc}</em>`:`<span>+${fmt(x.p)}</span>`}`;
+    l.querySelector('input').addEventListener('change',e=>{e.target.checked?kEx.add(x.id):kEx.delete(x.id);renderCalc();});E.appendChild(l);});
+  const plan=PLANS.find(p=>p.id===kPlan);const extras=EXTRAS.filter(x=>kEx.has(x.id)&&!(x.inc&&x.inc.includes(kPlan)));
+  const total=plan.p+extras.reduce((a,x)=>a+x.p,0);
+  $('kTotal').textContent=`${fmt(total)} TJS`;
+  const lines=[[`${KX[lang].plan}: ${plan[lang]}`,plan.p],...extras.map(x=>[x[lang],x.p])];
+  const text=`${KX[lang].hello}\n${lines.map(([a,b])=>`— ${a}: ${fmt(b)} TJS`).join('\n')}\n${KX[lang].tot}: ${fmt(total)} TJS`;
+  $('kSend').href='https://wa.me/992876399991?text='+encodeURIComponent(text);
+  if(fid){const f=$(fid);if(f)f.focus();}
+}
+function build(){
+  const v=id=>$(id).value.trim()||'—';
+  const p=$('plan').selectedOptions[0].textContent;
+  const text=T[lang].msg(v('name'),v('biz'),p);
+  $('msg').textContent=text;
+  $('wa').href='https://wa.me/992876399991?text='+encodeURIComponent(text);
+  $('res').hidden=false;
+}
+$('f').addEventListener('submit',e=>{e.preventDefault();build();});
+$('copy').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText($('msg').textContent);$('copy').textContent=lang==='tj'?'Нусха шуд':'Скопировано';}
+  catch(e){const r=document.createRange();r.selectNodeContents($('msg'));const s=getSelection();s.removeAllRanges();s.addRange(r);}
+});
+$('baRange').addEventListener('input',e=>$('ba').style.setProperty('--x',e.target.value));
+document.querySelectorAll('.plan .btn').forEach((b,i)=>b.addEventListener('click',()=>{$('plan').selectedIndex=i;kPlan=PLANS[i].id;renderCalc();}));
+/* promo: change PROMO_LEFT by hand when a discount seat is taken (5 = all free, 0 = none left) */
+const PROMO_TOTAL=5, PROMO_LEFT=5;
+function promo(){
+  $('prCount').textContent=lang==='tj'?`${PROMO_LEFT} аз ${PROMO_TOTAL}`:`${PROMO_LEFT} из ${PROMO_TOTAL}`;
+  $('prDots').innerHTML=Array.from({length:PROMO_TOTAL},(_,i)=>`<i class="${i<PROMO_LEFT?'':'taken'}"></i>`).join('');
+  const t=lang==='tj'?'Ассалому алейкум! Мехоҳам сайтро бо тахфифи 30% барои мизоҷони аввал фармоиш диҳам.':'Здравствуйте! Хочу заказать сайт со скидкой 30% для первых клиентов.';
+  $('prBtn').href='https://wa.me/992876399991?text='+encodeURIComponent(t);
+}
+function setLang(l){lang=l;
+  document.querySelectorAll('[data-k]').forEach(el=>{const v=T[l][el.dataset.k];if(typeof v==='string')el.textContent=v;});
+  document.documentElement.lang=l==='tj'?'tg':'ru';
+  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===l));
+  if(!$('res').hidden)build();
+  renderCalc();promo();
+  try{localStorage.setItem('lang',l)}catch(e){}
+}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+let saved=null;try{saved=localStorage.getItem('lang')}catch(e){}
+setLang(saved&&T[saved]?saved:'ru');
+
+/* scroll reveal + price count-up (only for blocks below the first screen, and only with motion allowed) */
+if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const countUp=el=>{const end=+el.dataset.count,t0=performance.now(),d=900;
+    const step=t=>{const k=Math.min(1,(t-t0)/d);el.textContent=fmt(Math.round(end*(1-Math.pow(1-k,3))));if(k<1)requestAnimationFrame(step);};
+    requestAnimationFrame(step);};
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
+    e.target.classList.add('in');e.target.querySelectorAll('[data-count]').forEach(countUp);io.unobserve(e.target);}),{rootMargin:'0px 0px 60px 0px'});
+  document.querySelectorAll('main section, .tiles, .promo').forEach(el=>{if(el.getBoundingClientRect().top>innerHeight)io.observe(el);});
+}
+</script>

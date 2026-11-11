@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ёсуман Бьюти Студия</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,500;1,500&family=Noto+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky nav; blush hero with jasmine arch art; perks; tabbed services; masters; 4-step booking (service, master, day, time) with summary; contacts */
+:root{
+  --bg:#fbf7f8; --surface:#ffffff; --ink:#2a1626; --muted:#6f5a68;
+  --plum:#5b2350; --blush:#f3dbe3; --mint:#2f7d6d; --line:#ecdde3; --on-plum:#fff6fa; --accent-text:#5b2350; --shadow:rgba(70,20,55,.2);
+  --display:"Noto Serif Display",Georgia,serif;
+  --body:"Noto Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#170d15; --surface:#22141f; --ink:#f4e8ef; --muted:#c0a8b8;
+  --plum:#8a3c7b; --blush:#3a2236; --mint:#5cc0a9; --line:#3a2636; --on-plum:#fff6fa; --accent-text:#f0a9d2; --shadow:rgba(0,0,0,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#170d15; --surface:#22141f; --ink:#f4e8ef; --muted:#c0a8b8;
+  --plum:#8a3c7b; --blush:#3a2236; --mint:#5cc0a9; --line:#3a2636; --on-plum:#fff6fa; --accent-text:#f0a9d2; --shadow:rgba(0,0,0,.5); color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+.demo{background:var(--blush);font-size:13px;text-align:center;padding:6px 16px}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:22px;padding-block:12px}
+.logo{font-family:var(--display);font-style:italic;font-size:24px;text-decoration:none;color:inherit;line-height:1}
+.logo small{display:block;font:600 10px var(--body);letter-spacing:.2em;text-transform:uppercase;font-style:normal;color:var(--muted)}
+.links{display:flex;gap:22px;margin-left:auto}
+.links a{color:var(--muted);text-decoration:none}.links a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.lang button{font:600 12px var(--body);padding:6px 12px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--plum);color:var(--on-plum)}
+@media (max-width:820px){.links{display:none}.lang{margin-left:auto}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px var(--body);padding:13px 24px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-plum{background:var(--plum);color:var(--on-plum)}
+.btn-line{border:1.5px solid var(--line);background:var(--surface);color:var(--ink)}
+.nav .btn{padding:9px 18px;font-size:14px}
+@media (max-width:460px){.nav .btn{display:none}}
+
+.hero{background:linear-gradient(180deg,var(--blush),var(--bg));overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:36px;align-items:center;padding-block:56px 64px}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:36px 44px}}
+.hero .tag{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
+.hero h1{font-family:var(--display);font-weight:500;font-size:clamp(38px,6.2vw,70px);line-height:1.02;margin:12px 0 18px;text-wrap:balance}
+.hero h1 em{color:var(--accent-text)}
+.hero p{margin:0 0 26px;max-width:46ch;color:var(--muted);font-size:18px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.rating{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px}
+.rating b{display:block;font-family:var(--display);font-size:28px;line-height:1.1}
+.rating span{font-size:14px;color:var(--muted)}
+.art svg{display:block;width:100%;max-width:420px;height:auto;margin:0 auto}
+.art .petal{animation:sway 6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes sway{50%{transform:rotate(8deg) translateY(-4px)}}
+
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px;padding-block:8px 24px}
+.perk{display:flex;gap:12px;align-items:center;min-width:0}
+.perk svg{width:42px;height:42px;flex:none;padding:10px;border-radius:50%;background:var(--blush);color:var(--accent-text)}
+.perk b{display:block;font-size:15px}.perk span span{font-size:13px;color:var(--muted)}
+
+section{padding-block:56px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
+h2{font-family:var(--display);font-weight:500;font-size:clamp(30px,4vw,44px);line-height:1.1;margin:6px 0 8px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 26px;max-width:60ch}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.chip{font:500 15px var(--body);padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--plum);border-color:var(--plum);color:var(--on-plum)}
+.chip:disabled{opacity:.4;text-decoration:line-through;cursor:not-allowed}
+.svc{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:12px}
+.s{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:4px 14px;min-width:0}
+.s b{font-size:17px}
+.s .p{font-family:var(--display);font-size:20px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.s .d{color:var(--muted);font-size:14px}
+.s button{justify-self:end;font:600 14px var(--body);border:0;background:transparent;color:var(--accent-text);cursor:pointer;padding:0}
+
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px}
+.m{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;display:grid;gap:12px;justify-items:start;min-width:0}
+.av{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:32px;color:var(--accent-text);background:var(--blush);box-shadow:0 0 0 4px var(--surface),0 0 0 6px var(--plum)}
+.m b{font-size:19px}
+.m .r{color:var(--muted);font-size:14px;margin-top:-8px}
+.m .tags{display:flex;gap:6px;flex-wrap:wrap}
+.m .tags span{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--blush)}
+
+.booking{background:var(--surface);border-block:1px solid var(--line)}
+.bk{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:900px){.bk{grid-template-columns:1fr}}
+.step{padding-block:16px;border-bottom:1px solid var(--line)}
+.step h3{margin:0 0 12px;font-size:16px;display:flex;align-items:center;gap:10px}
+.step h3 i{font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--plum);color:var(--on-plum);font-size:13px}
+.choices{display:flex;gap:8px;flex-wrap:wrap}
+.day{display:grid;justify-items:center;line-height:1.2;padding:8px 14px;border-radius:14px}
+.day small{font-size:12px;opacity:.75}
+input{font:16px var(--body);padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);width:100%;max-width:360px}
+.sum{position:sticky;top:calc(80px + env(safe-area-inset-top,0px));background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:24px;display:grid;gap:14px;min-width:0}
+.sum h3{margin:0;font-family:var(--display);font-weight:500;font-size:24px}
+.sum dl{margin:0;display:grid;gap:10px}
+.sum dl div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:8px}
+.sum dt{color:var(--muted)}.sum dd{margin:0;font-weight:600;text-align:right}
+.sum .tot{font-family:var(--display);font-size:28px}
+.sum .btn{width:100%}
+.sum .note{font-size:13px;color:var(--muted);margin:0}
+
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;min-width:0}
+.card dl{margin:0;display:grid;gap:12px}
+.card dt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card dd{margin:0;font-weight:600}
+.hours{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-variant-numeric:tabular-nums}
+footer{padding-block:28px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4" stroke-linecap="round"/></g></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/></g></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></symbol>
+  <symbol id="flower" viewBox="-20 -20 40 40"><g fill="#ffffff"><ellipse cx="0" cy="-9" rx="5.5" ry="9"/><ellipse cx="0" cy="-9" rx="5.5" ry="9" transform="rotate(72)"/><ellipse cx="0" cy="-9" rx="5.5" ry="9" transform="rotate(144)"/><ellipse cx="0" cy="-9" rx="5.5" ry="9" transform="rotate(216)"/><ellipse cx="0" cy="-9" rx="5.5" ry="9" transform="rotate(288)"/></g><circle r="3.5" fill="#e9b949"/></symbol>
+</svg>
+
+<div class="demo" data-k="demo">Это пример сайта для портфолио. Салон вымышленный.</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">Ёсуман<small>Beauty studio</small></a>
+    <div class="links"><a href="#services" data-k="nSvc">Услуги</a><a href="#team" data-k="nTeam">Мастера</a><a href="#contact" data-k="nContact">Контакты</a></div>
+    <div class="lang" role="group" aria-label="Язык">
+      <button id="btn-tj" type="button" aria-pressed="false" data-lang="tj">TJ</button>
+      <button id="btn-ru" type="button" aria-pressed="true" data-lang="ru">RU</button>
+    </div>
+    <a class="btn btn-plum" href="#book" data-k="nBook">Записаться</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="tag" data-k="tag">Салон красоты · Душанбе</span>
+      <h1><span data-k="h1a">Ваше время для</span> <em data-k="h1b">себя</em></h1>
+      <p data-k="lead">Стрижки, окрашивание, маникюр и свадебные образы. Женский зал, стерильные инструменты и мастера с опытом от 5 лет. Запись онлайн за минуту.</p>
+      <div class="cta">
+        <a class="btn btn-plum" href="#book" data-k="ctaA">Записаться онлайн</a>
+        <a class="btn btn-line" href="#services" data-k="ctaB">Услуги и цены</a>
+      </div>
+      <div class="rating">
+        <div><b>5+</b><span data-k="r1">лет опыта у мастеров</span></div>
+        <div><b>8</b><span data-k="r2">услуг для вас</span></div>
+        <div><b>7</b><span data-k="r3">дней в неделю</span></div>
+      </div>
+    </div>
+    <div class="art" aria-hidden="true">
+      <svg viewBox="0 0 400 460">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a3c7b"/><stop offset="1" stop-color="#5b2350"/></linearGradient>
+        <clipPath id="arch"><path d="M60 460V190a140 140 0 0 1 280 0v270z"/></clipPath></defs>
+        <path d="M40 460V190a160 160 0 0 1 320 0v270" fill="none" stroke="#5b2350" stroke-width="2" opacity=".35"/>
+        <path d="M60 460V190a140 140 0 0 1 280 0v270z" fill="url(#g)"/>
+        <g clip-path="url(#arch)" opacity=".18" stroke="#ffffff" fill="none" stroke-width="1.5">
+          <circle cx="200" cy="210" r="60"/><circle cx="200" cy="210" r="100"/><circle cx="200" cy="210" r="140"/>
+        </g>
+        <g clip-path="url(#arch)">
+          <path d="M120 470c10-90 40-150 80-190M280 470c-10-90-40-150-80-190M200 470V250" stroke="#2f7d6d" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M150 360c-25-5-35-25-30-40 20 5 32 20 30 40zM250 330c25-5 35-25 30-40-20 5-32 20-30 40zM200 300c-18-14-18-36-6-46 12 12 14 30 6 46z" fill="#2f7d6d"/>
+        </g>
+        <use href="#flower" class="petal" x="168" y="208" width="64" height="64"/>
+        <use href="#flower" class="petal" x="110" y="260" width="44" height="44" style="animation-delay:1s"/>
+        <use href="#flower" class="petal" x="250" y="240" width="50" height="50" style="animation-delay:2s"/>
+        <use href="#flower" x="300" y="120" width="40" height="40"/>
+        <use href="#flower" x="44" y="150" width="34" height="34"/>
+        <path d="M330 70l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#e9b949"/>
+        <path d="M70 100l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#e9b949" opacity=".8"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="wrap perks">
+  <div class="perk"><svg><use href="#i-shield"/></svg><span><b data-k="pk1">Стерильность</b><span data-k="pk1d">инструменты из сухожара</span></span></div>
+  <div class="perk"><svg><use href="#i-drop"/></svg><span><b data-k="pk2">Хорошие материалы</b><span data-k="pk2d">профессиональная косметика</span></span></div>
+  <div class="perk"><svg><use href="#i-heart"/></svg><span><b data-k="pk3">Женский зал</b><span data-k="pk3d">спокойно и уютно</span></span></div>
+  <div class="perk"><svg><use href="#i-cup"/></svg><span><b data-k="pk4">Чай для гостей</b><span data-k="pk4d">пока вы ждёте</span></span></div>
+</div>
+
+<section class="wrap" id="services">
+  <span class="kicker" data-k="sK">Услуги</span>
+  <h2 data-k="sT">Услуги и цены</h2>
+  <p class="sub" data-k="sS">Цены в сомони. Точная стоимость окрашивания зависит от длины волос.</p>
+  <div class="tabs" role="tablist" id="svcTabs"></div>
+  <div class="svc" id="svcList"></div>
+</section>
+
+<section class="wrap" id="team" style="padding-top:0">
+  <span class="kicker" data-k="tK">Команда</span>
+  <h2 data-k="tT">Наши мастера</h2>
+  <p class="sub" data-k="tS">Выберите мастера, и мы запишем вас к нему.</p>
+  <div class="team" id="teamList"></div>
+</section>
+
+<div class="booking" id="book">
+  <section class="wrap">
+    <span class="kicker" data-k="bK">Онлайн-запись</span>
+    <h2 data-k="bT">Запишитесь за минуту</h2>
+    <p class="sub" data-k="bS">Выберите услугу, мастера и время. Заявка уйдёт администратору в WhatsApp.</p>
+    <div class="bk">
+      <div>
+        <div class="step"><h3><i>1</i><span data-k="st1">Услуга</span></h3><div class="choices" id="cSvc"></div></div>
+        <div class="step"><h3><i>2</i><span data-k="st2">Мастер</span></h3><div class="choices" id="cMaster"></div></div>
+        <div class="step"><h3><i>3</i><span data-k="st3">День</span></h3><div class="choices" id="cDay"></div></div>
+        <div class="step"><h3><i>4</i><span data-k="st4">Время</span></h3><div class="choices" id="cTime"></div></div>
+        <div class="step" style="border:0"><h3><i>5</i><span data-k="st5">Ваше имя</span></h3><input id="name" autocomplete="off" value="Мадина"></div>
+      </div>
+      <aside class="sum">
+        <h3 data-k="sumT">Ваша запись</h3>
+        <dl>
+          <div><dt data-k="st1">Услуга</dt><dd id="oSvc"></dd></div>
+          <div><dt data-k="st2">Мастер</dt><dd id="oMaster"></dd></div>
+          <div><dt data-k="when">Когда</dt><dd id="oWhen"></dd></div>
+          <div><dt data-k="dur">Длительность</dt><dd id="oDur"></dd></div>
+        </dl>
+        <div class="tot" id="oPrice"></div>
+        <a class="btn btn-plum" id="send" href="https://wa.me/" target="_blank" rel="noopener"><svg width="18" height="18"><use href="#i-wa"/></svg><span data-k="send">Отправить запись в WhatsApp</span></a>
+        <p class="note" data-k="note">Администратор подтвердит запись в течение 15 минут.</p>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<section class="wrap" id="contact">
+  <span class="kicker" data-k="cK">Контакты</span>
+  <h2 data-k="cT">Ждём вас</h2>
+  <div class="contact">
+    <div class="card"><dl>
+      <div><dt data-k="addrL">Адрес</dt><dd data-k="addr">Душанбе, улица Айни (пример)</dd></div>
+      <div><dt data-k="phoneL">Телефон и WhatsApp</dt><dd>+992 00 000 00 00</dd></div>
+      <div><dt>Instagram</dt><dd>@yosuman.beauty</dd></div>
+    </dl></div>
+    <div class="card"><dl><div><dt data-k="hoursL">Часы работы</dt><dd><div class="hours">
+      <span data-k="h1">Пн – Сб</span><span>9:00 – 20:00</span><span data-k="h2">Воскресенье</span><span>10:00 – 17:00</span></div></dd></div>
+      <div><a class="btn btn-line" href="https://2gis.tj/dushanbe" target="_blank" rel="noopener" data-k="map">Открыть в 2ГИС</a></div></dl></div>
+  </div>
+</section>
+
+<footer><div class="wrap" data-k="foot">© Ёсуман Бьюти Студия, Душанбе. Пример сайта.</div></footer>
+
+<script>
+const CATS=[{id:'hair',ru:'Волосы',tj:'Мӯй'},{id:'nails',ru:'Ногти',tj:'Нохун'},{id:'face',ru:'Макияж и брови',tj:'Ороиш ва абрӯ'}];
+const SVC=[
+ {id:'cut',c:'hair',ru:'Женская стрижка',tj:'Мӯйгирии занона',p:80,from:1,m:60},
+ {id:'color',c:'hair',ru:'Окрашивание',tj:'Ранг кардани мӯй',p:250,from:1,m:150},
+ {id:'style',c:'hair',ru:'Укладка',tj:'Ороиши мӯй',p:60,from:1,m:45},
+ {id:'mani',c:'nails',ru:'Маникюр с покрытием',tj:'Маникюр бо рӯйпӯш',p:120,m:90},
+ {id:'pedi',c:'nails',ru:'Педикюр',tj:'Педикюр',p:150,m:90},
+ {id:'makeup',c:'face',ru:'Вечерний макияж',tj:'Ороиши шомгоҳӣ',p:200,m:60},
+ {id:'bride',c:'face',ru:'Свадебный образ',tj:'Ороиши арӯсӣ',p:600,from:1,m:180},
+ {id:'brows',c:'face',ru:'Коррекция бровей',tj:'Ислоҳи абрӯ',p:50,m:30}];
+const TEAM=[
+ {id:'any',ru:'Любой мастер',tj:'Ҳар устое'},
+ {id:'mo',ru:'Мохира',tj:'Моҳира',l:'М',rru:'Стилист-колорист',rtj:'Стилист-колорист',y:9,s:['cut','color','style']},
+ {id:'ni',ru:'Нигора',tj:'Нигора',l:'Н',rru:'Мастер маникюра',rtj:'Устои маникюр',y:6,s:['mani','pedi']},
+ {id:'fa',ru:'Фарангис',tj:'Фарангис',l:'Ф',rru:'Визажист, брови',rtj:'Визажист, абрӯ',y:7,s:['makeup','bride','brows']}];
+const DAYS={ru:['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],tj:['Яш','Дш','Сш','Чш','Пш','Ҷм','Шб']};
+const TIMES=['10:00','11:30','13:00','14:30','16:00','17:30','19:00'];
+const T={tj:{
+demo:"Ин намунаи сайт барои портфолио аст. Салон хаёлӣ аст.",
+nSvc:"Хизматҳо",nTeam:"Устоҳо",nContact:"Тамос",nBook:"Сабт шудан",
+tag:"Салони зебоӣ · Душанбе",h1a:"Вақти шумо барои",h1b:"худатон",
+lead:"Мӯйгирӣ, ранг кардан, маникюр ва ороиши арӯсӣ. Толори занона, асбобҳои стерилӣ ва устоҳо бо таҷрибаи аз 5 сол. Сабти онлайн дар як дақиқа.",
+ctaA:"Сабти онлайн",ctaB:"Хизматҳо ва нархҳо",r1:"сол таҷрибаи устоҳо",r2:"хизмат барои шумо",r3:"рӯз дар ҳафта",
+pk1:"Стерилӣ",pk1d:"асбобҳо аз ҷевони стерилкунӣ",pk2:"Маводи хуб",pk2d:"косметикаи касбӣ",pk3:"Толори занона",pk3d:"ором ва бароҳат",pk4:"Чой барои меҳмонон",pk4d:"вақте ки интизоред",
+sK:"Хизматҳо",sT:"Хизматҳо ва нархҳо",sS:"Нархҳо бо сомонӣ. Нархи аниқи ранг кардан аз дарозии мӯй вобаста аст.",
+tK:"Даста",tT:"Устоҳои мо",tS:"Устоеро интихоб кунед, мо шуморо ба ӯ сабт мекунем.",
+bK:"Сабти онлайн",bT:"Дар як дақиқа сабт шавед",bS:"Хизмат, усто ва вақтро интихоб кунед. Дархост ба маъмур дар WhatsApp меравад.",
+st1:"Хизмат",st2:"Усто",st3:"Рӯз",st4:"Вақт",st5:"Номи шумо",sumT:"Сабти шумо",when:"Кай",dur:"Давомнокӣ",
+send:"Фиристодани сабт ба WhatsApp",note:"Маъмур сабтро дар давоми 15 дақиқа тасдиқ мекунад.",
+cK:"Тамос",cT:"Мунтазири шумоем",addrL:"Суроға",addr:"Душанбе, кӯчаи Айнӣ (намуна)",phoneL:"Телефон ва WhatsApp",hoursL:"Соатҳои корӣ",h1:"Дш – Шб",h2:"Якшанбе",map:"Кушодан дар 2GIS",
+foot:"© Ёсуман Бьюти Студия, Душанбе. Намунаи сайт."},
+};
+const X={ru:{from:'от',min:'мин',h:'ч',book:'Записаться →',bookTo:'Записаться к мастеру',yrs:y=>`${y} лет опыта`,today:'Сегодня',tom:'Завтра',
+ msg:(n,s,m,w)=>`Здравствуйте! Меня зовут ${n}. Хочу записаться: ${s}, мастер: ${m}, ${w}.`},
+ tj:{from:'аз',min:'дақ',h:'с',book:'Сабт шудан →',bookTo:'Сабт ба усто',yrs:y=>`${y} сол таҷриба`,today:'Имрӯз',tom:'Фардо',
+ msg:(n,s,m,w)=>`Ассалому алейкум! Ман ${n}. Мехоҳам сабт шавам: ${s}, усто: ${m}, ${w}.`}};
+const ru={};document.querySelectorAll('[data-k]').forEach(el=>{ru[el.dataset.k]??=el.textContent});T.ru=ru;
+let lang='ru',cat='hair';const st={svc:'mani',master:'ni',day:1,time:'14:30'};
+const $=id=>document.getElementById(id);
+const dur=m=>m>=60?`${Math.floor(m/60)} ${X[lang].h}${m%60?' '+m%60+' '+X[lang].min:''}`:`${m} ${X[lang].min}`;
+const price=s=>`${s.from?X[lang].from+' ':''}${s.p} SM`;
+function chip(label,on,fn,dis){const b=document.createElement('button');b.type='button';b.className='chip';b.innerHTML=label;b.setAttribute('aria-pressed',!!on);if(dis)b.disabled=true;b.addEventListener('click',fn);return b;}
+function dayDate(i){const d=new Date();d.setDate(d.getDate()+i);return d;}
+function renderServices(){
+  $('svcTabs').innerHTML='';CATS.forEach(c=>{const b=chip(c[lang],c.id===cat,()=>{cat=c.id;renderServices();});b.setAttribute('role','tab');b.setAttribute('aria-selected',c.id===cat);b.removeAttribute('aria-pressed');$('svcTabs').appendChild(b);});
+  $('svcList').innerHTML='';SVC.filter(s=>s.c===cat).forEach(s=>{const d=document.createElement('div');d.className='s';
+    d.innerHTML=`<b>${s[lang]}</b><span class="p">${price(s)}</span><span class="d">${dur(s.m)}</span>`;
+    const b=document.createElement('button');b.type='button';b.textContent=X[lang].book;b.addEventListener('click',()=>{st.svc=s.id;const t=TEAM.find(t=>t.s&&t.s.includes(s.id));st.master=t?t.id:'any';renderBooking();$('book').scrollIntoView({behavior:'smooth'});});
+    d.appendChild(b);$('svcList').appendChild(d);});
+}
+function renderTeam(){
+  $('teamList').innerHTML='';TEAM.filter(t=>t.l).forEach(t=>{const d=document.createElement('div');d.className='m';
+    d.innerHTML=`<div class="av">${t.l}</div><b>${t[lang]}</b><span class="r">${lang==='tj'?t.rtj:t.rru} · ${X[lang].yrs(t.y)}</span><div class="tags">${t.s.map(id=>`<span>${SVC.find(s=>s.id===id)[lang]}</span>`).join('')}</div>`;
+    const b=document.createElement('button');b.type='button';b.className='btn btn-line';b.textContent=X[lang].bookTo;
+    b.addEventListener('click',()=>{st.master=t.id;if(!t.s.includes(st.svc))st.svc=t.s[0];renderBooking();$('book').scrollIntoView({behavior:'smooth'});});
+    d.appendChild(b);$('teamList').appendChild(d);});
+}
+function renderBooking(){
+  $('cSvc').innerHTML='';SVC.forEach(s=>$('cSvc').appendChild(chip(s[lang],s.id===st.svc,()=>{st.svc=s.id;const m=TEAM.find(t=>t.id===st.master);if(m.s&&!m.s.includes(s.id))st.master='any';renderBooking();})));
+  $('cMaster').innerHTML='';TEAM.forEach(t=>{const ok=!t.s||t.s.includes(st.svc);$('cMaster').appendChild(chip(t[lang],t.id===st.master,()=>{st.master=t.id;renderBooking();},!ok));});
+  $('cDay').innerHTML='';for(let i=0;i<7;i++){const d=dayDate(i);const top=i===0?X[lang].today:i===1?X[lang].tom:DAYS[lang][d.getDay()];
+    const b=chip(`<small>${top}</small>${d.getDate()}`,i===st.day,()=>{st.day=i;renderBooking();});b.classList.add('day');$('cDay').appendChild(b);}
+  $('cTime').innerHTML='';TIMES.forEach((t,i)=>{const busy=(i*3+st.day*2)%5===0&&t!==st.time;$('cTime').appendChild(chip(t,t===st.time,()=>{st.time=t;renderBooking();},busy));});
+  summary();
+}
+function summary(){
+  const s=SVC.find(x=>x.id===st.svc),m=TEAM.find(x=>x.id===st.master),d=dayDate(st.day);
+  const ds=`${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}`;
+  const w=`${ds}, ${st.time}`;
+  $('oSvc').textContent=s[lang];$('oMaster').textContent=m[lang];$('oWhen').textContent=w;$('oDur').textContent=dur(s.m);$('oPrice').textContent=price(s);
+  const n=$('name').value.trim()||'—';
+  $('send').href='https://wa.me/?text='+encodeURIComponent(X[lang].msg(n,s[lang],m[lang],w));
+}
+$('name').addEventListener('input',summary);
+function setLang(l){lang=l;
+  document.querySelectorAll('[data-k]').forEach(el=>{const v=T[l][el.dataset.k];if(typeof v==='string')el.textContent=v;});
+  document.documentElement.lang=l==='tj'?'tg':'ru';
+  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===l));
+  renderServices();renderTeam();renderBooking();try{localStorage.setItem('lang',l)}catch(e){}
+}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+let saved=null;try{saved=localStorage.getItem('lang')}catch(e){}
+setLang(saved&&T[saved]?saved:'ru');
+</script>
